@@ -9,6 +9,6 @@ async function bootstrap() {
   app.setBaseViewsDir(`${__dirname}/../views/templates`);
   app.setViewEngine('hbs');
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || '80');
 }
 bootstrap();
