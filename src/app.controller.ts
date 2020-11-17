@@ -11,7 +11,7 @@ import {
 import { AppService } from './app.service';
 import { Article } from './entities/article.entity';
 
-@Controller('articles')
+@Controller()
 export class AppController {
   constructor(private readonly AppService: AppService) {}
 
@@ -19,7 +19,6 @@ export class AppController {
   @Render('index')
   async getArticles(@Query('page') page = 1) {
     const data = await this.AppService.getArticles(page);
-    console.log(page);
     return { data };
   }
 

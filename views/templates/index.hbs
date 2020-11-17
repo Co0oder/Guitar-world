@@ -13,7 +13,7 @@
 
 <div class="row">
     {{#each data.articles }}
-        <a class="article" href="/articles/{{this.id}}">
+        <a class="article" href="/{{this.id}}">
             <div class="article-logo" style="background-image:url('{{this.image}}'); background-size: cover;">
             </div>
             <h1>{{this.title}}</h1>
@@ -36,7 +36,7 @@
       let page = document.createElement('a');
       page.textContent = i;
       page.className = "page";
-      page.setAttribute('href',`/articles?page=${i}`);
+      page.setAttribute('href',`?page=${i}`);
       paginationDiv.appendChild(page);
       if(carrentPage == i){
         page.classList.add('active');
