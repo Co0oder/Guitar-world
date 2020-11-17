@@ -1,30 +1,46 @@
-import {Injectable} from '@nestjs/common';
-import { InjectRepository} from '@nestjs/typeorm'
-import { Article } from './entities/article.entity'
-import { Repository } from 'typeorm'
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Article } from './entities/article.entity';
+import { Repository } from 'typeorm';
+
 @Injectable()
-export class ArticlesService{
+export class ArticlesService {
+  constructor(
+    @InjectRepository(Article)
+    private ArticleEntity: Repository<Article>,
+  ) {}
 
-    constructor(
-        @InjectRepository(Article)
-        private ArticleEntity: Repository<Article>
-    ) {}
+  async getArticles(page: number) {
+    const limit = 5;
+    const amountOfArticles = await this.ArticleEntity.count();
+    const pages = Math.ceil(amountOfArticles / limit);
+    const articles = await this.ArticleEntity.find({
+      select: ['id', 'title', 'image'],
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    return {
+      articles,
+      pages,
+      page,
+    };
+  }
 
-    async getArticles(){
-        const articles = await this.ArticleEntity.find({select: ['title'] })
-        return articles;
-    }
+  async getOneArticle(id: number) {
+    const articles = await this.ArticleEntity.findOne(id, {
+      select: ['title', 'content'],
+    });
+    return articles;
+  }
 
-    async getOneArticle(id: number){
-        const articles = await this.ArticleEntity.find({select : ['id','title'], where : {id}});
-        return articles;
-    }
+  createArticle(article: Article) {
+    this.ArticleEntity.save(article);
+  }
 
-    createArticle(article: Article){
-        this.ArticleEntity.save(article);
-    }
+  async deleteOneArticle(id: number) {
+    const article = await this.ArticleEntity.findOne(id);
+    this.ArticleEntity.remove(article);
 
-    deleteOneArticle(id: number){
-        this.ArticleEntity.delete(id);
-    }
+    this.ArticleEntity.delete(id);
+  }
 }

@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
 import 'dotenv/config';
-import { ArticlesModule } from './articles/articles.module';
-import { ArticlesController } from './articles/articles.controller'
+import { Article } from './entities/article.entity';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppController } from './app.controller';
 
 @Module({
-  imports: [ArticlesModule,
+  imports: [
+    TypeOrmModule.forFeature([Article]),
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
-   }),],
-  controllers: [ArticlesController],
+    }),
+  ],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
