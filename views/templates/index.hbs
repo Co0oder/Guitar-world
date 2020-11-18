@@ -11,7 +11,7 @@
   <h2 class="title">GUITAR - BLOG</h2>
 </div>
 
-<div class="row">
+<div class="row" id="row">
     {{#each data.articles }}
         <a class="article" href="/{{this.id}}">
             <div class="article-logo" style="background-image:url('{{this.image}}'); background-size: cover;">
@@ -32,17 +32,31 @@
     const pages = paginationDiv.getAttribute('value');
     const carrentPage = paginationDiv.getAttribute('data-page');
     console.log(carrentPage);
-    for(let i = 1; i <= pages; i++){
-      let page = document.createElement('a');
-      page.textContent = i;
-      page.className = "page";
-      page.setAttribute('href',`?page=${i}`);
-      paginationDiv.appendChild(page);
-      if(carrentPage == i){
-        page.classList.add('active');
+    if(+carrentPage > +pages){
+      const row = document.getElementById('row');
+      const gif = document.createElement('img');
+      const title = document.createElement('h1');
+      const backLink = document.createElement('a');
+      backLink.innerText = '< Назад ';
+      backLink.setAttribute('href','/')
+      title.innerText ='Ти зайшов занадто далоко';
+      gif.setAttribute('src','https://muztorg.ua/image/catalog/99993/%202019-2020/09.10.20/14_The%20Beatles.gif')
+      row.appendChild(gif);
+      row.appendChild(title);
+      row.appendChild(backLink);
+    }
+    if(+pages > 1 && +carrentPage <= +pages)
+      for(let i = 1; i <= pages; i++){
+        let page = document.createElement('a');
+        page.textContent = i;
+        page.className = "page";
+        page.setAttribute('href',`?page=${i}`);
+        paginationDiv.appendChild(page);
+        if(carrentPage == i){
+          page.classList.add('active');
+        }
       }
     }
-  }
 </script>
 </body>
 </html>
