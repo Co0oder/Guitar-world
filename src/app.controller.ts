@@ -40,4 +40,10 @@ export class AppController {
     this.AppService.deleteOneArticle(id);
     return 'OK';
   }
+
+  @Delete()
+  deleteAllArticles() {
+    this.AppService.deleteAllArticles();
+    return 'all deleted';
+  }
 }

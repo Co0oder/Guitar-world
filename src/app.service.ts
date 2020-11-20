@@ -11,7 +11,7 @@ export class AppService {
   ) {}
 
   async getArticles(page: number) {
-    const limit = 5;
+    const limit = 3;
     const amountOfArticles = await this.ArticleEntity.count();
     const pages = Math.ceil(amountOfArticles / limit);
     const articles = await this.ArticleEntity.find({
@@ -40,7 +40,10 @@ export class AppService {
   async deleteOneArticle(id: number) {
     const article = await this.ArticleEntity.findOne(id);
     this.ArticleEntity.remove(article);
+  }
 
-    this.ArticleEntity.delete(id);
+  async deleteAllArticles() {
+    const articles = await this.ArticleEntity.find();
+    this.ArticleEntity.remove(articles);
   }
 }
