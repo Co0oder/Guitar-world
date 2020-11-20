@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #0000;
+    background-color: #000;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -33,6 +33,10 @@ a:hover{
 .header-logo{
     width: 150px;
 }
+
+.bottom-line{
+    background-color: white;
+}
 .article-header {
     width: 100%;
     background-color: #000;
@@ -54,12 +58,8 @@ a:hover{
     color: orangered;   
 }
 
-.bottom-line{
-    margin-top: 10px;
-    border: 2px solid white;
-    width: 100%;
-}
 .row {
+    margin-top: 20px;
     background-size: cover;
     display: -webkit-flex;
     display: flex;
