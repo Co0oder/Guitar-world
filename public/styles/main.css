@@ -10,6 +10,10 @@ body {
 }
 
 .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     background-color: #000;
     padding: 30px;
     height: 25vh;
@@ -17,6 +21,9 @@ body {
     font-size: 35px;
 }
 
+.header-logo{
+    width: 150px;
+}
 .article-header {
     width: 100%;
     background-color: #000;
