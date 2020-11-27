@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  nodejsTest:
+    build: .
+    image: nodejs
+    ports:
+      - 3000:3000
+    hostname: web.local
+    container_name: nodejsTest
+    restart: unless-stopped
+    env_file:
+      - './.env'
+    volumes:
+      - '.:/usr/src'
+    networks:
+      - app-networkTest
+
+networks:
+  app-networkTest:
+    driver: bridge
